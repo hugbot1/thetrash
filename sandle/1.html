@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Fun Land — The Ultimate Digital Amusement Park</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            cyan: '#00f3ff',
+                            purple: '#9d00ff',
+                            pink: '#ff007f',
+                            gold: '#ffd700',
+                            dark: '#0a0a12',
+                            card: '#121225'
+                        }
+                    },
+                    boxShadow: {
+                        'glow-cyan': '0 0 20px rgba(0, 243, 255, 0.4)',
+                        'glow-purple': '0 0 20px rgba(157, 0, 255, 0.4)',
+                        'glow-pink': '0 0 20px rgba(255, 0, 127, 0.4)',
+                        'glow-gold': '0 0 20px rgba(255, 215, 0, 0.4)'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.8, transform: 'scale(1)' },
+                            '50%': { opacity: 1, transform: 'scale(1.03)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite ease-in-out',
+                        'float': 'float 4s infinite ease-in-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #07070f;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neon-border-cyan {
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        .neon-border-purple {
+            border: 1px solid rgba(157, 0, 255, 0.4);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.2);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.6);
+        }
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="grid-bg">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-opacity-80 bg-[#07070f] border-b border-purple-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-purple to-neon-cyan flex items-center justify-center text-black font-black text-xl shadow-glow-cyan transform group-hover:rotate-12 transition duration-300">
+                    G
+                </div>
+                <span class="font-heading font-black text-xl sm:text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple">
+                    GEMINI <span class="text-neon-pink">FUN LAND</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-wider text-gray-300">
+                <a href="#attractions" class="hover:text-neon-cyan transition duration-200">Attractions</a>
+                <a href="#tickets" class="hover:text-neon-purple transition duration-200">Tickets</a>
+                <a href="#dining" class="hover:text-neon-pink transition duration-200">Food & Snacks</a>
+                <a href="#map" class="hover:text-neon-gold transition duration-200">Park Map</a>
+                <a href="#reviews" class="hover:text-neon-cyan transition duration-200">Reviews</a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="hidden sm:block">
+                <a href="#tickets" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-neon-purple to-neon-pink text-white font-bold text-sm tracking-wide shadow-glow-purple hover:shadow-glow-pink hover:scale-105 transition duration-300">
+                    GET TICKETS 🎟️
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#0a0a14] border-b border-purple-900/50 px-4 pt-2 pb-6 space-y-3">
+            <a href="#attractions" class="block py-2 text-gray-300 hover:text-neon-cyan font-semibold">Attractions</a>
+            <a href="#tickets" class="block py-2 text-gray-300 hover:text-neon-purple font-semibold">Tickets</a>
+            <a href="#dining" class="block py-2 text-gray-300 hover:text-neon-pink font-semibold">Food & Snacks</a>
+            <a href="#map" class="block py-2 text-gray-300 hover:text-neon-gold font-semibold">Park Map</a>
+            <a href="#reviews" class="block py-2 text-gray-300 hover:text-neon-cyan font-semibold">Reviews</a>
+            <a href="#tickets" class="inline-block w-full text-center py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-pink text-white font-bold">
+                GET TICKETS 🎟️
+            </a>
+        </div>
+    </header>
+
+    <!-- Live Park Status Banner -->
+    <div class="bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-purple-950/80 border-b border-neon-cyan/20 py-2.5 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span class="font-bold uppercase tracking-wider text-emerald-400">Park Open Today:</span>
+                <span class="text-gray-300">10:00 AM – 11:00 PM</span>
+            </div>
+            <div class="flex items-center space-x-6 text-gray-300">
+                <span><i class="fa-solid fa-cloud-moon text-neon-cyan mr-1"></i> 72°F Clear Skies</span>
+                <span><i class="fa-solid fa-[#00f3ff] fa-bolt text-neon-gold mr-1"></i> Quantum Drop: <strong class="text-neon-cyan">15m wait</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-4">
+        <!-- Glowing background ORBS -->
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-neon-purple/20 rounded-full filter blur-3xl -z-10 animate-pulse-glow"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-neon-cyan/20 rounded-full filter blur-3xl -z-10 animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+
+        <div class="max-w-5xl mx-auto text-center space-y-8">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-purple-950/60 border border-neon-purple/40 text-neon-cyan text-xs sm:text-sm font-semibold tracking-wider uppercase mb-2">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>Next-Gen High-Voltage Thrills Await</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white leading-tight">
+                WELCOME TO <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink neon-text-cyan">
+                    GEMINI FUN LAND
+                </span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-gray-300 text-base sm:text-lg md:text-xl font-light leading-relaxed">
+                Step into a hyper-charged digital reality where zero-latency coasters drop through parallel dimensions, pixel popcorn shifts flavors in real-time, and arcade battles come alive!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#tickets" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-neon-cyan via-cyan-400 to-neon-purple text-black font-extrabold text-lg tracking-wide shadow-glow-cyan hover:scale-105 transition duration-300">
+                    BOOK TICKETS NOW <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#attractions" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900/80 border border-purple-500/30 hover:border-neon-pink text-white font-bold text-lg tracking-wide hover:bg-purple-950/40 transition duration-300">
+                    EXPLORE RIDES <i class="fa-solid fa-vr-cardboard ml-2 text-neon-pink"></i>
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl bg-neon-dark/60 border border-purple-900/40 backdrop-blur">
+                    <div class="font-heading text-3xl font-bold text-neon-cyan">500 FT</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest mt-1">Quantum Drop Height</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-neon-dark/60 border border-purple-900/40 backdrop-blur">
+                    <div class="font-heading text-3xl font-bold text-neon-pink">120 MPH</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest mt-1">Neural Coaster Speed</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-neon-dark/60 border border-purple-900/40 backdrop-blur">
+                    <div class="font-heading text-3xl font-bold text-neon-purple">0 LATENCY</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest mt-1">High Voltage Energy</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-neon-dark/60 border border-purple-900/40 backdrop-blur">
+                    <div class="font-heading text-3xl font-bold text-neon-gold">100%</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest mt-1">Adrenaline Rush</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Showcase -->
+    <section id="attractions" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-wider mb-4">
+                PARK <span class="text-neon-cyan">ATTRACTIONS</span>
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg">
+                Choose your level of thrill—from dimension-bending gravity tower drops to pixelated carnival midways.
+            </p>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mt-8">
+                <button onclick="filterAttractions('all')" class="filter-btn active px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-neon-purple text-white shadow-glow-purple transition">All Rides</button>
+                <button onclick="filterAttractions('thrill')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-800 text-gray-300 hover:text-white hover:bg-slate-700 transition">Thrill Coasters</button>
+                <button onclick="filterAttractions('midway')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-800 text-gray-300 hover:text-white hover:bg-slate-700 transition">Midway & Arcade</button>
+                <button onclick="filterAttractions('snack')" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-800 text-gray-300 hover:text-white hover:bg-slate-700 transition">Food & Refreshments</button>
+            </div>
+        </div>
+
+        <!-- Attraction Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: Quantum Drop Tower -->
+            <div class="attraction-card thrill group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-cyan transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-purple-950 to-indigo-900 relative flex items-center justify-center overflow-hidden">
+                    <!-- Icon Placeholder -->
+                    <div class="text-6xl text-neon-cyan opacity-80 group-hover:scale-110 group-hover:rotate-6 transition duration-500">
+                        <i class="fa-solid fa-atom"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-neon-pink/90 text-white font-bold text-xs uppercase tracking-wider">
+                        EXTREME THRILL
+                    </span>
+                    <span class="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-neon-cyan text-xs font-semibold">
+                        <i class="fa-solid fa-clock mr-1"></i> Wait: 15 min
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-neon-cyan transition">The Quantum Drop Tower</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Shoot 500 feet into the clouds before plunging into a freefall space-time rift with 3 seconds of weightlessness.
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-ruler-vertical text-neon-purple mr-1"></i> Min Height: 54"</span>
+                        <span><i class="fa-solid fa-[#00f3ff] fa-bolt text-neon-gold mr-1"></i> Intensity: 10/10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: The Neural Loop-de-Loop -->
+            <div class="attraction-card thrill group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-purple transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-indigo-950 to-purple-900 relative flex items-center justify-center overflow-hidden">
+                    <div class="text-6xl text-neon-purple opacity-80 group-hover:scale-110 group-hover:-rotate-6 transition duration-500">
+                        <i class="fa-solid fa-infinity"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-neon-purple/90 text-white font-bold text-xs uppercase tracking-wider">
+                        COASTER
+                    </span>
+                    <span class="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-neon-purple text-xs font-semibold">
+                        <i class="fa-solid fa-clock mr-1"></i> Wait: 25 min
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-neon-purple transition">The Neural Loop-de-Loop</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        A high-speed launch coaster blasting at 120 mph through glowing code tunnels, inverted corkscrews, and triple loops.
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-ruler-vertical text-neon-purple mr-1"></i> Min Height: 48"</span>
+                        <span><i class="fa-solid fa-bolt text-neon-gold mr-1"></i> Speed: 120 MPH</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Riddle Master's Tent -->
+            <div class="attraction-card midway group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-gold transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-purple-950 to-amber-950 relative flex items-center justify-center overflow-hidden">
+                    <div class="text-6xl text-neon-gold opacity-80 group-hover:scale-110 transition duration-500">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-neon-gold/90 text-black font-bold text-xs uppercase tracking-wider">
+                        INTERACTIVE
+                    </span>
+                    <span class="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-neon-gold text-xs font-semibold">
+                        <i class="fa-solid fa-trophy mr-1"></i> Prizes Included
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-neon-gold transition">Riddle Master’s Tent</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Face off against our AI trickster in real-time riddle challenges to win oversized pixel-art plushies and rare park badges!
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-users text-neon-gold mr-1"></i> All Ages</span>
+                        <span><i class="fa-solid fa-gamepad text-neon-cyan mr-1"></i> Live Host</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: 8-Bit Arcade Hall -->
+            <div class="attraction-card midway group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-pink transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-fuchsia-950 to-pink-950 relative flex items-center justify-center overflow-hidden">
+                    <div class="text-6xl text-neon-pink opacity-80 group-hover:scale-110 transition duration-500">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-neon-pink/90 text-white font-bold text-xs uppercase tracking-wider">
+                        RETRO & VR
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-neon-pink transition">8-Bit Arcade Hall</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Over 200 classic arcade cabinets, high-tech full-motion VR pods, and global leaderboards. Unlimited play with your park pass!
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-ticket text-neon-pink mr-1"></i> Free with Pass</span>
+                        <span><i class="fa-solid fa-vr-cardboard text-neon-cyan mr-1"></i> VR Pods</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Pixel Popcorn Stand -->
+            <div class="attraction-card snack group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-gold transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-amber-950 to-yellow-900 relative flex items-center justify-center overflow-hidden">
+                    <div class="text-6xl text-amber-400 opacity-80 group-hover:scale-110 transition duration-500">
+                        <i class="fa-solid fa-popcorn"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-amber-500 text-black font-bold text-xs uppercase tracking-wider">
+                        SNACK STATION
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition">Pixel Popcorn Stand</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Warm, 8-bit cube popcorn that shifts flavor with every bite—from sweet movie butter to cotton candy and sour apple!
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-utensils text-neon-gold mr-1"></i> Multi-Flavor</span>
+                        <span><i class="fa-solid fa-fire text-amber-500 mr-1"></i> Served Hot</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Zero-Latency Soda Bar -->
+            <div class="attraction-card snack group relative rounded-3xl bg-neon-card border border-purple-900/50 overflow-hidden hover:border-neon-cyan transition-all duration-300 hover:-translate-y-2">
+                <div class="h-56 bg-gradient-to-t from-black via-cyan-950 to-blue-950 relative flex items-center justify-center overflow-hidden">
+                    <div class="text-6xl text-neon-cyan opacity-80 group-hover:scale-110 transition duration-500">
+                        <i class="fa-solid fa-glass-water-droplet"></i>
+                    </div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-neon-cyan text-black font-bold text-xs uppercase tracking-wider">
+                        BEVERAGES
+                    </span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-neon-cyan transition">Zero-Latency Soda Bar</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Ice-cold, ultra-fizzy energy sodas engineered to eliminate fatigue instantly. Unlimited refills with VIP Pass!
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs text-gray-400">
+                        <span><i class="fa-solid fa-snowflake text-neon-cyan mr-1"></i> Sub-Zero Ice</span>
+                        <span><i class="fa-solid fa-bolt text-neon-gold mr-1"></i> Instant Energy</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Ticket Pricing Section -->
+    <section id="tickets" class="py-20 px-4 bg-gradient-to-b from-transparent via-[#0c0c1e] to-transparent border-y border-purple-900/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-neon-purple text-xs sm:text-sm font-bold uppercase tracking-widest">Select Your Experience</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-wider mt-2">
+                    PARK PASS <span class="text-neon-pink">TIERS</span>
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg mt-4">
+                    Unlock full park access, express ride passes, and unlimited Zero-Latency Soda refills.
+                </p>
+            </div>
+
+            <!-- Tier Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Day Pass -->
+                <div class="rounded-3xl bg-neon-card border border-gray-800 p-8 relative flex flex-col justify-between hover:border-gray-600 transition">
+                    <div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wide">Single Day Pass</h3>
+                        <p class="text-gray-400 text-xs mt-1">Perfect for a quick thrill hit</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-black text-white">$49</span>
+                            <span class="text-gray-400 text-sm">/ guest</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Full Access to All Coasters</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2"></i> 8-Bit Arcade Unlimited Play</li>
+                            <li class="flex items-center text-gray-500"><i class="fa-solid fa-xmark mr-2"></i> Express Line Pass</li>
+                            <li class="flex items-center text-gray-500"><i class="fa-solid fa-xmark mr-2"></i> Unlimited Soda Refills</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectTier('Single Day Pass', 49)" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm tracking-wider uppercase transition">
+                        Select Pass
+                    </button>
+                </div>
+
+                <!-- Fast Pass VIP (Featured) -->
+                <div class="rounded-3xl bg-neon-card border-2 border-neon-cyan p-8 relative flex flex-col justify-between shadow-glow-cyan transform md:-translate-y-4">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-black text-xs uppercase tracking-widest">
+                        MOST POPULAR
+                    </span>
+                    <div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wide">VIP Quantum Pass</h3>
+                        <p class="text-neon-cyan text-xs mt-1">Maximum Thrill, Zero Waiting</p>
+                        <div class="my-6">
+                            <span class="text-5xl font-black text-white">$89</span>
+                            <span class="text-gray-400 text-sm">/ guest</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-200">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-cyan mr-2"></i> All Coasters & Attractions</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-cyan mr-2"></i> **VIP Express Line Skip**</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-cyan mr-2"></i> Unlimited Zero-Latency Soda</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-cyan mr-2"></i> 1 Free Pixel Popcorn Bucket</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectTier('VIP Quantum Pass', 89)" class="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-black text-sm tracking-wider uppercase shadow-glow-cyan hover:scale-105 transition">
+                        Select VIP Pass
+                    </button>
+                </div>
+
+                <!-- Season Pass -->
+                <div class="rounded-3xl bg-neon-card border border-purple-900/50 p-8 relative flex flex-col justify-between hover:border-neon-purple transition">
+                    <div>
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wide">Infinite Season Pass</h3>
+                        <p class="text-gray-400 text-xs mt-1">Unlimited access all year long</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-black text-white">$179</span>
+                            <span class="text-gray-400 text-sm">/ year</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-purple mr-2"></i> Unlimited Visits All Season</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-purple mr-2"></i> VIP Fast Lane Access</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-purple mr-2"></i> 20% Off Food & Merchandise</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-neon-purple mr-2"></i> Free VIP Parking</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectTier('Infinite Season Pass', 179)" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm tracking-wider uppercase transition">
+                        Select Pass
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Interactive Ticket Calculator Widget -->
+            <div class="max-w-3xl mx-auto rounded-3xl bg-neon-dark border border-purple-500/30 p-6 sm:p-8 backdrop-blur shadow-2xl">
+                <h3 class="text-2xl font-bold text-white text-center uppercase tracking-wider mb-6">
+                    <i class="fa-solid fa-calculator text-neon-cyan mr-2"></i> Custom Ticket Calculator
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Selected Pass Type</label>
+                        <select id="passSelect" onchange="calculateTotal()" class="w-full bg-slate-900 border border-purple-900 rounded-xl px-4 py-3 text-white font-semibold focus:outline-none focus:border-neon-cyan">
+                            <option value="49">Single Day Pass ($49)</option>
+                            <option value="89" selected>VIP Quantum Pass ($89)</option>
+                            <option value="179">Infinite Season Pass ($179)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Number of Guests</label>
+                        <div class="flex items-center space-x-3 bg-slate-900 border border-purple-900 rounded-xl p-1.5">
+                            <button onclick="adjustGuests(-1)" class="w-10 h-10 rounded-lg bg-slate-800 text-white font-bold hover:bg-neon-purple transition">-</button>
+                            <span id="guestCount" class="flex-1 text-center font-bold text-white text-lg">2</span>
+                            <button onclick="adjustGuests(1)" class="w-10 h-10 rounded-lg bg-slate-800 text-white font-bold hover:bg-neon-purple transition">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add-ons -->
+                <div class="mt-6 pt-6 border-t border-gray-800 space-y-3">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Optional Add-ons</span>
+                    <label class="flex items-center space-x-3 text-sm text-gray-300 cursor-pointer">
+                        <input type="checkbox" id="addonSoda" onchange="calculateTotal()" class="w-4 h-4 rounded border-gray-700 text-neon-purple focus:ring-neon-purple bg-slate-900">
+                        <span>Unlimited Zero-Latency Soda Refill Pouch (+$12/person)</span>
+                    </label>
+                    <label class="flex items-center space-x-3 text-sm text-gray-300 cursor-pointer">
+                        <input type="checkbox" id="addonPopcorn" onchange="calculateTotal()" class="w-4 h-4 rounded border-gray-700 text-neon-purple focus:ring-neon-purple bg-slate-900">
+                        <span>Souvenir Pixel Popcorn Bucket with Infinite Refills (+$15)</span>
+                    </label>
+                </div>
+
+                <!-- Total Display -->
+                <div class="mt-8 pt-6 border-t border-purple-900/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs text-gray-400 uppercase tracking-widest block">Total Estimated Price</span>
+                        <span id="totalPrice" class="text-4xl font-black text-neon-cyan">$178.00</span>
+                    </div>
+                    <button onclick="checkoutModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-neon-pink to-neon-purple text-white font-black text-sm tracking-wider uppercase shadow-glow-pink hover:scale-105 transition">
+                        Checkout Tickets <i class="fa-solid fa-lock ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Food & Snack Plaza Section -->
+    <section id="dining" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Info -->
+            <div class="space-y-6">
+                <span class="text-neon-gold text-xs sm:text-sm font-bold uppercase tracking-widest">
+                    <i class="fa-solid fa-utensils mr-1"></i> Food & Snack Plaza
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-wider leading-tight">
+                    HIGH-VOLTAGE <br><span class="text-neon-gold">PIXEL EATS</span>
+                </h2>
+                <p class="text-gray-300 text-base leading-relaxed">
+                    Refuel your adrenaline with our legendary snacks! Experience **Pixel Popcorn**, cooked in 8-bit cube forms that randomly switch flavors with every bite, paired with an ice-cold, zero-lag energy soda!
+                </p>
+
+                <!-- Interactive Popcorn Flavor Generator -->
+                <div class="p-6 rounded-2xl bg-neon-card border border-amber-500/30 space-y-4">
+                    <h4 class="font-heading text-lg font-bold text-amber-400 flex items-center">
+                        <i class="fa-solid fa-dice mr-2"></i> Try the Pixel Popcorn Flavor Simulator!
+                    </h4>
+                    <p class="text-xs text-gray-400">Click below to grab a virtual piece from the bucket:</p>
+
+                    <div id="popcornDisplay" class="p-4 rounded-xl bg-slate-900 border border-amber-900/50 text-center text-lg font-bold text-amber-300 min-h-[60px] flex items-center justify-center">
+                        🍿 Click "Grab Popcorn" to test a flavor!
+                    </div>
+
+                    <button onclick="generateFlavor()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-extrabold text-sm uppercase tracking-wider shadow-glow-gold hover:scale-[1.02] transition">
+                        Grab Popcorn Handful ✨
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Menu Preview -->
+            <div class="rounded-3xl bg-neon-card border border-purple-900/50 p-6 sm:p-8 space-y-6">
+                <h3 class="text-2xl font-bold text-white uppercase tracking-wider border-b border-gray-800 pb-4">
+                    Featured Menu Highlights
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center pb-3 border-b border-gray-800/60">
+                        <div>
+                            <h4 class="font-bold text-white text-base">Bucket of Pixel Popcorn</h4>
+                            <p class="text-xs text-gray-400">8-bit cube popcorn with shifting magic flavors</p>
+                        </div>
+                        <span class="text-neon-gold font-bold text-lg">$9.99</span>
+                    </div>
+
+                    <div class="flex justify-between items-center pb-3 border-b border-gray-800/60">
+                        <div>
+                            <h4 class="font-bold text-white text-base">Zero-Latency Energy Soda</h4>
+                            <p class="text-xs text-gray-400">Sub-zero carbonated surge with berry blast</p>
+                        </div>
+                        <span class="text-neon-cyan font-bold text-lg">$5.99</span>
+                    </div>
+
+                    <div class="flex justify-between items-center pb-3 border-b border-gray-800/60">
+                        <div>
+                            <h4 class="font-bold text-white text-base">Holographic Golden Churro</h4>
+                            <p class="text-xs text-gray-400">Crispy cinnamon churro dusted with edible gold glitter</p>
+                        </div>
+                        <span class="text-neon-pink font-bold text-lg">$7.50</span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white text-base">Quantum Slushie Yard</h4>
+                            <p class="text-xs text-gray-400">Layered neon slushie in a souvenir glowing tube</p>
+                        </div>
+                        <span class="text-neon-purple font-bold text-lg">$11.99</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Park Map Section -->
+    <section id="map" class="py-20 px-4 bg-gradient-to-b from-transparent via-[#080816] to-transparent">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-neon-gold text-xs sm:text-sm font-bold uppercase tracking-widest">Navigation Center</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-wider mt-2">
+                    PARK <span class="text-neon-gold">MAP</span>
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base mt-2">
+                    Click on hotspots across Gemini Fun Land to locate key rides and food plazas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Map Graphic -->
+                <div class="lg:col-span-2 relative rounded-3xl bg-slate-950 border-2 border-purple-900/60 p-4 sm:p-8 overflow-hidden min-h-[380px] flex items-center justify-center">
+                    <!-- Grid Lines Background -->
+                    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#00f3ff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+                    <!-- Map SVG Illustration -->
+                    <svg class="w-full h-auto max-w-xl" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Main Path -->
+                        <path d="M 100 350 Q 200 200 300 250 T 500 100" stroke="#9d00ff" stroke-width="8" stroke-dasharray="10 5" fill="none" opacity="0.6"/>
+                        
+                        <!-- Attraction Zones -->
+                        <!-- Quantum Drop -->
+                        <circle cx="120" cy="120" r="45" fill="#00f3ff" fill-opacity="0.15" stroke="#00f3ff" stroke-width="2"/>
+                        <!-- Neural Loop -->
+                        <circle cx="480" cy="120" r="50" fill="#9d00ff" fill-opacity="0.15" stroke="#9d00ff" stroke-width="2"/>
+                        <!-- Midway Arcade -->
+                        <circle cx="280" cy="220" r="40" fill="#ff007f" fill-opacity="0.15" stroke="#ff007f" stroke-width="2"/>
+                        <!-- Snack Plaza -->
+                        <circle cx="200" cy="320" r="35" fill="#ffd700" fill-opacity="0.15" stroke="#ffd700" stroke-width="2"/>
+                    </svg>
+
+                    <!-- Clickable Interactive Hotspots -->
+                    <!-- Hotspot 1 -->
+                    <button onclick="showMapInfo('quantum')" class="absolute top-[28%] left-[20%] group focus:outline-none">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-neon-cyan text-black font-bold text-xs items-center justify-center shadow-glow-cyan">1</span>
+                        </span>
+                        <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-neon-cyan bg-black/80 px-2 py-0.5 rounded border border-neon-cyan/40">Quantum Drop</span>
+                    </button>
+
+                    <!-- Hotspot 2 -->
+                    <button onclick="showMapInfo('neural')" class="absolute top-[28%] right-[20%] group focus:outline-none">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-purple opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-neon-purple text-white font-bold text-xs items-center justify-center shadow-glow-purple">2</span>
+                        </span>
+                        <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-neon-purple bg-black/80 px-2 py-0.5 rounded border border-neon-purple/40">Neural Loop</span>
+                    </button>
+
+                    <!-- Hotspot 3 -->
+                    <button onclick="showMapInfo('midway')" class="absolute top-[52%] left-[46%] group focus:outline-none">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-pink opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-neon-pink text-white font-bold text-xs items-center justify-center shadow-glow-pink">3</span>
+                        </span>
+                        <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-neon-pink bg-black/80 px-2 py-0.5 rounded border border-neon-pink/40">Arcade & Tent</span>
+                    </button>
+
+                    <!-- Hotspot 4 -->
+                    <button onclick="showMapInfo('snack')" class="absolute bottom-[20%] left-[32%] group focus:outline-none">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-gold opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-8 w-8 bg-neon-gold text-black font-bold text-xs items-center justify-center shadow-glow-gold">4</span>
+                        </span>
+                        <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-neon-gold bg-black/80 px-2 py-0.5 rounded border border-neon-gold/40">Food Plaza</span>
+                    </button>
+                </div>
+
+                <!-- Info Sidebar -->
+                <div id="mapDetailCard" class="rounded-3xl bg-neon-card border border-purple-900/50 p-6 space-y-4">
+                    <div class="flex items-center space-x-3 text-neon-cyan">
+                        <i class="fa-solid fa-location-dot text-2xl"></i>
+                        <h4 id="mapLocationTitle" class="font-heading text-xl font-bold text-white">Quantum Drop Zone</h4>
+                    </div>
+                    <p id="mapLocationDesc" class="text-sm text-gray-300 leading-relaxed">
+                        Located in the North Sector. Features the 500ft Quantum Drop Tower, locker rentals, and sub-zero drink stands.
+                    </p>
+                    <div class="pt-4 border-t border-gray-800 space-y-2 text-xs text-gray-400">
+                        <div><strong class="text-gray-200">Wait Time:</strong> <span id="mapWaitTime">15 minutes</span></div>
+                        <div><strong class="text-gray-200">Recommended Age:</strong> 12+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guest Reviews Section -->
+    <section id="reviews" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-neon-cyan text-xs sm:text-sm font-bold uppercase tracking-widest">Real Guest Experiences</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-wider mt-2">
+                WHAT VISITORS <span class="text-neon-cyan">SAY</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="rounded-3xl bg-neon-card border border-purple-900/40 p-6 space-y-4">
+                <div class="flex text-amber-400 text-sm space-x-1">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-gray-300 text-sm italic">
+                    "The Quantum Drop Tower was insane! The 3-second rift freefall felt like floating in outer space. Hands down best park ever!"
+                </p>
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <div class="w-10 h-10 rounded-full bg-neon-purple/40 flex items-center justify-center font-bold text-neon-cyan">
+                        AL
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold text-sm">Alex L.</h5>
+                        <span class="text-xs text-gray-500">Verified VIP Guest</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-3xl bg-neon-card border border-purple-900/40 p-6 space-y-4">
+                <div class="flex text-amber-400 text-sm space-x-1">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-gray-300 text-sm italic">
+                    "Pixel Popcorn actually tastes like movie butter one second and cotton candy the next. My kids didn't want to leave!"
+                </p>
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <div class="w-10 h-10 rounded-full bg-neon-pink/40 flex items-center justify-center font-bold text-neon-pink">
+                        SR
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold text-sm">Sarah R.</h5>
+                        <span class="text-xs text-gray-500">Season Pass Holder</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-3xl bg-neon-card border border-purple-900/40 p-6 space-y-4">
+                <div class="flex text-amber-400 text-sm space-x-1">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-gray-300 text-sm italic">
+                    "The Neural Loop-de-Loop at 120 mph with dynamic reactive audio is unmatched. Getting the VIP pass was 100% worth it."
+                </p>
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <div class="w-10 h-10 rounded-full bg-neon-gold/40 flex items-center justify-center font-bold text-neon-gold">
+                        MK
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold text-sm">Marcus K.</h5>
+                        <span class="text-xs text-gray-500">Thrill Enthusiast</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-purple-900/50 py-12 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="space-y-4">
+                <span class="font-heading font-black text-xl text-white">GEMINI <span class="text-neon-pink">FUN LAND</span></span>
+                <p class="text-xs text-gray-400">
+                    The world's first digital high-voltage theme park experience. Built for thrill-seekers, gamers, and flavor adventurers.
+                </p>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h5>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><a href="#attractions" class="hover:text-neon-cyan">Attractions</a></li>
+                    <li><a href="#tickets" class="hover:text-neon-cyan">Ticket Pricing</a></li>
+                    <li><a href="#dining" class="hover:text-neon-cyan">Food & Drinks</a></li>
+                    <li><a href="#map" class="hover:text-neon-cyan">Park Map</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Park Info</h5>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    100 Quantum Way, Cyber City<br>
+                    Open Daily: 10:00 AM – 11:00 PM<br>
+                    Support: help@geminifunland.com
+                </p>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Follow The Thrill</h5>
+                <div class="flex space-x-4 text-gray-400 text-lg">
+                    <a href="#" class="hover:text-neon-cyan"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-neon-pink"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-neon-purple"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="hover:text-neon-gold"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-gray-900 pt-6 text-center text-xs text-gray-500">
+            © 2026 Gemini Fun Land Inc. All rights reserved. Designed for ultimate thrills.
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Ticket Calculator Logic
+        let currentGuestCount = 2;
+
+        function adjustGuests(amount) {
+            currentGuestCount += amount;
+            if (currentGuestCount < 1) currentGuestCount = 1;
+            if (currentGuestCount > 20) currentGuestCount = 20;
+            document.getElementById('guestCount').innerText = currentGuestCount;
+            calculateTotal();
+        }
+
+        function selectTier(tierName, price) {
+            document.getElementById('passSelect').value = price;
+            calculateTotal();
+            window.location.href = "#tickets";
+        }
+
+        function calculateTotal() {
+            const passPrice = parseFloat(document.getElementById('passSelect').value);
+            let total = passPrice * currentGuestCount;
+
+            // Addons
+            if (document.getElementById('addonSoda').checked) {
+                total += 12 * currentGuestCount;
+            }
+            if (document.getElementById('addonPopcorn').checked) {
+                total += 15;
+            }
+
+            document.getElementById('totalPrice').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function checkoutModal() {
+            alert(`🎉 Ticket Order Placed!\n\nThank you for booking your adventure at Gemini Fun Land. Your confirmation and QR code passes have been generated!`);
+        }
+
+        // Attraction Filter Logic
+        function filterAttractions(category) {
+            const cards = document.querySelectorAll('.attraction-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-neon-purple', 'text-white', 'shadow-glow-purple');
+                btn.classList.add('bg-slate-800', 'text-gray-300');
+            });
+
+            event.target.classList.remove('bg-slate-800', 'text-gray-300');
+            event.target.classList.add('bg-neon-purple', 'text-white', 'shadow-glow-purple');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Popcorn Simulator
+        const flavors = [
+            "🍿 Hot Movie Butter & Sea Salt",
+            "🍬 Sweet Electric Pink Cotton Candy",
+            "🍏 Zesty Cyber Sour Apple",
+            "🍯 Salted Caramel Pop-Rock Crunch",
+            "🍫 Neon Blue Glazed Chocolate"
+        ];
+
+        function generateFlavor() {
+            const display = document.getElementById('popcornDisplay');
+            const randomFlavor = flavors[Math.floor(Math.random() * flavors.length)];
+            display.innerHTML = `<span class="animate-pulse">${randomFlavor}</span>`;
+        }
+
+        // Map Info Hotspot Handler
+        const mapLocations = {
+            quantum: {
+                title: "Quantum Drop Zone",
+                desc: "North Sector: Home to the 500ft drop tower, gravity-warp chambers, and sub-zero drink stands.",
+                wait: "15 minutes"
+            },
+            neural: {
+                title: "Neural Coaster Loop",
+                desc: "East Sector: High-speed 120 mph launch coaster with full neon code tunnels and reactive music.",
+                wait: "25 minutes"
+            },
+            midway: {
+                title: "Midway & 8-Bit Arcade",
+                desc: "Central Plaza: Riddle Master AI tent, 200+ retro arcade machines, and virtual reality pods.",
+                wait: "No wait"
+            },
+            snack: {
+                title: "Food & Snack Plaza",
+                desc: "South Sector: Home of Pixel Popcorn, Zero-Latency Soda, and Holographic Golden Churros.",
+                wait: "5 minutes"
+            }
+        };
+
+        function showMapInfo(locationKey) {
+            const loc = mapLocations[locationKey];
+            if (loc) {
+                document.getElementById('mapLocationTitle').innerText = loc.title;
+                document.getElementById('mapLocationDesc').innerText = loc.desc;
+                document.getElementById('mapWaitTime').innerText = loc.wait;
+            }
+        }
+    </script>
+</body>
+</html>
